@@ -1,0 +1,130 @@
+/* Lógico_1: */
+
+CREATE TABLE Team (
+    Name CHAR PRIMARY KEY,
+    Name CHAR
+);
+
+CREATE TABLE Player (
+    Level NUMERIC,
+    Score NUMERIC,
+    Region CHAR,
+    User_Name CHAR,
+    ID_Player NUMERIC PRIMARY KEY
+);
+
+CREATE TABLE Champion (
+    ID_Champion NUMERIC PRIMARY KEY,
+    Name CHAR,
+    Ability CHAR,
+    Damage_Type CHAR,
+    Function CHAR
+);
+
+CREATE TABLE Match (
+    Results CHAR,
+    Duration NUMERIC,
+    Date_Time DATE,
+    ID_Match NUMERIC PRIMARY KEY
+);
+
+CREATE TABLE Player_Match_Game (
+    fk_Player_ID_Player NUMERIC,
+    fk_Match_ID_Match NUMERIC
+);
+
+CREATE TABLE Item (
+    ID_item NUMERIC PRIMARY KEY,
+    Cost NUMERIC,
+    Description CHAR,
+    Effect CHAR,
+    Name CHAR,
+    Phisyc_Damage NUMERIC,
+    Magic_Damage NUMERIC,
+    Armor NUMERIC,
+    Res_Magic NUMERIC,
+    Item_TIPO CHAR
+);
+
+CREATE TABLE Has (
+    fk_Team_Name CHAR,
+    fk_Player_ID_Player NUMERIC
+);
+
+CREATE TABLE Has (
+    fk_Player_ID_Player NUMERIC,
+    fk_Champion_ID_Champion NUMERIC
+);
+
+CREATE TABLE Participate (
+    fk_Champion_ID_Champion NUMERIC,
+    fk_Match_ID_Match NUMERIC
+);
+
+CREATE TABLE Has (
+    fk_Team_Name CHAR,
+    fk_Match_ID_Match NUMERIC
+);
+
+CREATE TABLE Buy (
+    fk_Match_ID_Match NUMERIC,
+    fk_Item_ID_item NUMERIC
+);
+ 
+ALTER TABLE Player_Match_Game ADD CONSTRAINT FK_Player_Match_Game_1
+    FOREIGN KEY (fk_Player_ID_Player)
+    REFERENCES Player (ID_Player);
+ 
+ALTER TABLE Player_Match_Game ADD CONSTRAINT FK_Player_Match_Game_2
+    FOREIGN KEY (fk_Match_ID_Match)
+    REFERENCES Match (ID_Match);
+ 
+ALTER TABLE Has ADD CONSTRAINT FK_Has_1
+    FOREIGN KEY (fk_Team_Name)
+    REFERENCES Team (Name)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Has ADD CONSTRAINT FK_Has_2
+    FOREIGN KEY (fk_Player_ID_Player)
+    REFERENCES Player (ID_Player)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Has ADD CONSTRAINT FK_Has_1
+    FOREIGN KEY (fk_Player_ID_Player)
+    REFERENCES Player (ID_Player)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Has ADD CONSTRAINT FK_Has_2
+    FOREIGN KEY (fk_Champion_ID_Champion)
+    REFERENCES Champion (ID_Champion)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Participate ADD CONSTRAINT FK_Participate_1
+    FOREIGN KEY (fk_Champion_ID_Champion)
+    REFERENCES Champion (ID_Champion)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Participate ADD CONSTRAINT FK_Participate_2
+    FOREIGN KEY (fk_Match_ID_Match)
+    REFERENCES Match (ID_Match)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Has ADD CONSTRAINT FK_Has_1
+    FOREIGN KEY (fk_Team_Name)
+    REFERENCES Team (Name)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Has ADD CONSTRAINT FK_Has_2
+    FOREIGN KEY (fk_Match_ID_Match)
+    REFERENCES Match (ID_Match)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Buy ADD CONSTRAINT FK_Buy_1
+    FOREIGN KEY (fk_Match_ID_Match)
+    REFERENCES Match (ID_Match)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Buy ADD CONSTRAINT FK_Buy_2
+    FOREIGN KEY (fk_Item_ID_item)
+    REFERENCES Item (ID_item)
+    ON DELETE SET NULL;
